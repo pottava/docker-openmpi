@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y gcc ssh wget curl
 RUN build_packages="build-essential" \
     && apt-get update \
     && apt-get install -y ${build_packages} \
-    && repo="https://www.open-mpi.org/software/ompi/v3.0/downloads" \
+    && repo="https://www.open-mpi.org/software/ompi/v2.1/downloads" \
     && curl --location --silent --show-error --output openmpi.tar.gz \
       "${repo}/openmpi-${OPENMPI_VERSION}.tar.gz" \
     && echo '118c212451e71bc710fbc8deb4fc167c3ca50a60  openmpi.tar.gz' | sha1sum -c - \

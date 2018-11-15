@@ -1,6 +1,6 @@
 FROM debian:stretch-slim
 
-ENV OPENMPI_VERSION=3.0.1 \
+ENV OPENMPI_VERSION=3.0.3 \
     LD_LIBRARY_PATH=/usr/local/lib
 
 RUN apt-get update && apt-get install -y gcc ssh wget curl
@@ -11,7 +11,7 @@ RUN build_packages="build-essential" \
     && repo="https://www.open-mpi.org/software/ompi/v3.0/downloads" \
     && curl --location --silent --show-error --output openmpi.tar.gz \
       "${repo}/openmpi-${OPENMPI_VERSION}.tar.gz" \
-    && echo '69ede8a492e99e4ad12d4f69aee8a82d29966438  openmpi.tar.gz' | sha1sum -c - \
+    && echo '25af2018f90a0030450b7f0f79d9001f2c9bcb06  openmpi.tar.gz' | sha1sum -c - \
     && tar xzf openmpi.tar.gz -C /tmp/ \
     && cd /tmp/openmpi-${OPENMPI_VERSION} \
     && ./configure --prefix=/usr/local \

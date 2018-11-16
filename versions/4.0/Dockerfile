@@ -1,12 +1,28 @@
 FROM debian:stretch-slim
 
-ENV OPENMPI_VERSION=4.0.0 \
-    LD_LIBRARY_PATH=/usr/local/lib
+RUN apt-get update \
+    && apt-get install -y gcc ssh wget curl \
+    && curl --location --silent --show-error --output /tini \
+       https://github.com/krallin/tini/releases/download/v0.18.0/tini \
+    && chmod +x /tini \
+    && adduser --uid 1000 --home /home/mpiuser --shell /bin/bash \
+       --disabled-password --gecos '' mpiuser \
+    && passwd -d mpiuser \
+    && apt-get install -y openssh-server \
+    && mkdir -p /run/sshd \
+    && sed -i s/#PermitRootLogin.*/PermitRootLogin\ no/ /etc/ssh/sshd_config \
+    && sed -i s/#PubkeyAuthentication.*/PubkeyAuthentication\ no/ /etc/ssh/sshd_config \
+    && sed -i s/.*UsePAM.*/UsePAM\ no/ /etc/ssh/sshd_config \
+    && sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ yes/ /etc/ssh/sshd_config \
+    && sed -i s/#PermitEmptyPasswords.*/PermitEmptyPasswords\ yes/ /etc/ssh/sshd_config \
+    && sed -i s/#ChallengeResponse.*/ChallengeResponseAuthentication\ no/ /etc/ssh/sshd_config \
+    && sed -i s/#PermitUserEnvironment.*/PermitUserEnvironment\ yes/ /etc/ssh/sshd_config
 
-RUN apt-get update && apt-get install -y gcc ssh wget curl
+ENV OPENMPI_VERSION=4.0.0 \
+    LD_LIBRARY_PATH=/usr/local/lib \
+    DEBCONF_NOWARNINGS=yes
 
 RUN build_packages="build-essential" \
-    && apt-get update \
     && apt-get install -y ${build_packages} \
     && repo="https://www.open-mpi.org/software/ompi/v4.0/downloads" \
     && curl --location --silent --show-error --output openmpi.tar.gz \
@@ -21,3 +37,9 @@ RUN build_packages="build-essential" \
     && cd / \
     && rm -rf /tmp/openmpi-${OPENMPI_VERSION} /openmpi.tar.gz \
     && apt-get purge -y --auto-remove ${build_packages}
+
+WORKDIR /home/mpiuser
+
+ENTRYPOINT ["/tini", "--"]
+# do not detach (-D), log to stderr (-e)
+CMD ["/usr/sbin/sshd", "-D", "-e"]

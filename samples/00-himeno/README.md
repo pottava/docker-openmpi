@@ -1,13 +1,13 @@
-# Docker を使った姫野ベンチマーク
+# Himeno benchmark with docker
 
-## 姫野ベンチマーク
+## Introduction to the Himeno benchmark @riken.jp
 
 http://accc.riken.jp/supercom/documents/himenobmt/
 
-## C + MPI, static allocate version でのベンチマークを実施
+## Using `C + MPI, static allocate` version
 
 http://i.riken.jp/supercom/documents/himenobmt/download/mpi-vpp/#itemid4514  
-以下では次元数を `S 1 1 1` としていますが、実行環境に合わせて書き換えてみてください
+Although the following commands use `S 1 1 1` as its parameter, please modify that as you like.
 
 ```
 $ docker run --rm -it pottava/openmpi:4.0 \

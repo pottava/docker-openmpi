@@ -4,5 +4,7 @@
 
 ## Supported tags and respective `Dockerfile` links:
 
-・latest ([versions/3.0/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/3.0/Dockerfile))  
-・3.0 ([versions/3.0/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/3.0/Dockerfile))  
+・latest ([versions/4.0/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/4.0/Dockerfile))  
+・4.0 ([versions/4.0/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/4.0/Dockerfile))  
+・3.1 ([versions/3.1/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/3.1/Dockerfile))  
+・2.1 ([versions/2.1/Dockerfile](https://github.com/pottava/docker-openmpi/blob/master/versions/2.1/Dockerfile))  

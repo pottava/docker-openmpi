@@ -9,7 +9,9 @@ RUN apt-get update \
        --disabled-password --gecos '' mpiuser \
     && passwd -d mpiuser \
     && apt-get install -y openssh-server \
-    && mkdir -p /run/sshd \
+    && mkdir -p /run/sshd /home/mpiuser/.ssh \
+    && echo "StrictHostKeyChecking no" > .ssh/config \
+    && chown -R mpiuser /home/mpiuser \
     && sed -i s/#PermitRootLogin.*/PermitRootLogin\ no/ /etc/ssh/sshd_config \
     && sed -i s/#PubkeyAuthentication.*/PubkeyAuthentication\ no/ /etc/ssh/sshd_config \
     && sed -i s/.*UsePAM.*/UsePAM\ no/ /etc/ssh/sshd_config \

@@ -1,2 +1,4 @@
 config.json
+aws-auth*
 todo*
+daemonset.yaml

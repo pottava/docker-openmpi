@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: openmpi-sample-05
+  labels:
+    app: openmpi
+spec:
+  selector:
+    matchLabels:
+      app: openmpi
+  template:
+    metadata:
+      labels:
+        app: openmpi
+    spec:
+      containers:
+      - name: openmpi-with-ssh-server
+        image: <image-name>
+        ports:
+        - containerPort: 22
+          hostPort: 2222
+        volumeMounts:
+        - name: home
+          mountPath: /home/mpiuser/work
+      volumes:
+      - name: home
+        hostPath:
+          path: /home/mpiuser/work
+      terminationGracePeriodSeconds: 10

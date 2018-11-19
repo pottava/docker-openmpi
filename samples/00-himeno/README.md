@@ -16,5 +16,5 @@ $ docker run --rm -it pottava/openmpi:4.0 \
     && unzip -q cc_himenobmtxp_mpi.zip && lha xqw=/opt/himeno cc_himenobmtxp_mpi.lzh \
     && cd /opt/himeno && mv Makefile.sample Makefile \
     && chmod +x ./paramset.sh && ./paramset.sh S 1 1 1 && make >/dev/null 2>&1 \
-    && mpirun --allow-run-as-root -np 1 /opt/himeno/bmt"
+    && su -c 'mpirun -np 1 /opt/himeno/bmt' mpiuser"
 ```

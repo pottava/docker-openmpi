@@ -10,7 +10,7 @@ RUN apt-get update \
     && passwd -d mpiuser \
     && apt-get install -y openssh-server \
     && mkdir -p /run/sshd /home/mpiuser/.ssh \
-    && echo "StrictHostKeyChecking no" > .ssh/config \
+    && echo "StrictHostKeyChecking no" > /home/mpiuser/.ssh/config \
     && chown -R mpiuser /home/mpiuser \
     && sed -i s/#PermitRootLogin.*/PermitRootLogin\ no/ /etc/ssh/sshd_config \
     && sed -i s/#PubkeyAuthentication.*/PubkeyAuthentication\ no/ /etc/ssh/sshd_config \
